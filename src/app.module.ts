@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config'; 
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Product } from './product/product.entity';
 import { User } from './user/user.entity';
 import { ProductModule } from './product/product.module';
@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { Role } from './role/role.entity';
+import { HealthModule } from './health/health.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,18 +24,17 @@ import { Role } from './role/role.entity';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product, User, Role], 
-        synchronize: false,
-        migrations: ['dist/migrations/*.js'],
-        migrationsRun: true,
+        entities: [Product, User, Role],
+        synchronize: true,
         logging: true,
       }),
       inject: [ConfigService],
     }),
-    ProductModule, 
+    ProductModule,
     UserModule,
     AuthModule,
     RoleModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [],

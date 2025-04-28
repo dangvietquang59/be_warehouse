@@ -1,20 +1,37 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { Role } from './role.entity';
 import { RoleService } from './role.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { ApiResponseDto } from '../common/dto/api-response.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Roles')
 @Controller('roles')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new product' })
-  @ApiResponse({ status: 201, description: 'The product has been successfully created.', type: Role })
+  @ApiResponse({
+    status: 201,
+    description: 'The product has been successfully created.',
+    type: Role,
+  })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  async create(@Body() createRoleDto: CreateRoleDto): Promise<ApiResponseDto<any>> {
+  async create(
+    @Body() createRoleDto: CreateRoleDto,
+  ): Promise<ApiResponseDto<any>> {
     const role = await this.roleService.create(createRoleDto);
     return new ApiResponseDto(201, role);
   }

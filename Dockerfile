@@ -14,9 +14,6 @@ RUN yarn install
 # Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
-# Sao chép wait-for-it.sh vào trong container
-COPY wait-for-it.sh /app/wait-for-it.sh
-
 # Đảm bảo rằng wait-for-it.sh có quyền thực thi
 RUN chmod +x /app/wait-for-it.sh
 

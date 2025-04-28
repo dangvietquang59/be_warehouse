@@ -11,9 +11,8 @@ async function bootstrap() {
     .setTitle('Warehouse Management API')
     .setDescription('The warehouse management API description')
     .setVersion('1.0')
-    .addTag('warehouse')
     .build();
-  
+
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document); // Swagger sẽ có sẵn tại /api
   app.useGlobalPipes(new ValidationPipe());

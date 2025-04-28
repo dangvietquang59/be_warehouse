@@ -1,0 +1,25 @@
+version: '3'
+services:
+  postgres-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: ware_house_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  nestjs-app:
+    build: .
+    command: ["./wait-for-it.sh", "postgres-db:5432", "--", "yarn", "start:prod"]
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres-data:

@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config'; // Đảm bảo đã cài @nestjs/config
+import { ConfigModule, ConfigService } from '@nestjs/config'; 
 import { Product } from './product/product.entity';
+import { User } from './user/user.entity';
 import { ProductModule } from './product/product.module';
-
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { RoleModule } from './role/role.module';
+import { Role } from './role/role.entity';
 @Module({
   imports: [
-    // Đảm bảo ConfigModule được khởi tạo và đọc file .env
     ConfigModule.forRoot({
-      envFilePath: '.env', // Đọc từ file .env
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -19,12 +22,18 @@ import { ProductModule } from './product/product.module';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product], // Danh sách entities
-        synchronize: true, // Cài đặt cho development
+        entities: [Product, User, Role], 
+        synchronize: false,
+        migrations: ['dist/migrations/*.js'],
+        migrationsRun: true,
+        logging: true,
       }),
       inject: [ConfigService],
     }),
-    ProductModule, // Đăng ký các module khác
+    ProductModule, 
+    UserModule,
+    AuthModule,
+    RoleModule,
   ],
   controllers: [],
   providers: [],

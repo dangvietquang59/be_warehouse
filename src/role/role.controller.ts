@@ -17,7 +17,7 @@ import { ApiResponseDto } from '../common/dto/api-response.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Roles')
-@Controller('roles')
+@Controller('api/roles')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 

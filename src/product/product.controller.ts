@@ -6,7 +6,7 @@ import { Product } from './product.entity';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Products')
-@Controller('products')
+@Controller('api/products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

@@ -16,7 +16,11 @@ export class ProductService {
   }
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const product = this.productRepository.create(createProductDto);  // Tạo sản phẩm mới từ DTO
-    return this.productRepository.save(product);  // Lưu vào DB
+    const SKU = 'PROD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    const product = this.productRepository.create({
+      ...createProductDto,
+      SKU,
+    });
+    return this.productRepository.save(product);
   }
 }

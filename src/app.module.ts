@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { Role } from './role/role.entity';
 import { HealthModule } from './health/health.module';
+import { Category } from './category/category.entity';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { HealthModule } from './health/health.module';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product, User, Role],
+        entities: [Product, User, Role, Category],
         synchronize: true,
         logging: true,
       }),
@@ -35,6 +37,7 @@ import { HealthModule } from './health/health.module';
     AuthModule,
     RoleModule,
     HealthModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],

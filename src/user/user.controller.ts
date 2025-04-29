@@ -12,7 +12,7 @@ export class UserController {
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<ApiResponseDto<any>> {
     const user = await this.userService.findById(+id);
-    return new ApiResponseDto(200, user);
+    return new ApiResponseDto(200, user, 'User retrieved successfully');
   }
 
   @Put(':id')
@@ -21,6 +21,6 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<ApiResponseDto<any>> {
     const updatedUser = await this.userService.updateUser(id, updateUserDto);
-    return new ApiResponseDto(200, updatedUser);
+    return new ApiResponseDto(200, updatedUser, 'User updated successfully');
   }
 }

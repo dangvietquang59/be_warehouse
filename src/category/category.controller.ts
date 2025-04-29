@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { ApiTags } from '@nestjs/swagger';
 import { CategoryService } from './category.service';
 import { Category } from './category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { ApiResponseDto } from '../common/dto/api-response.dto';
 
 @ApiTags('Categories')
 @Controller('api/categories')
@@ -13,8 +14,11 @@ export class CategoryController {
   @Get()
   @ApiOperation({ summary: 'Get all categories' })
   @ApiResponse({ status: 200, description: 'Return all categories' })
-  async findAll() {
-    return this.categoryService.findAll();
+  async findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<[Category[], number]> {
+    return this.categoryService.findAll(page, limit);
   }
 
   @Post()
@@ -27,7 +31,8 @@ export class CategoryController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   async create(
     @Body() createCategoryDto: CreateCategoryDto,
-  ): Promise<Category> {
-    return this.categoryService.create(createCategoryDto);
+  ): Promise<ApiResponseDto<any>> {
+    const category = await this.categoryService.create(createCategoryDto);
+    return new ApiResponseDto(201, category, 'Category created successfully');
   }
 }

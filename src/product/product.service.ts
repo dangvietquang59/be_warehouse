@@ -11,8 +11,15 @@ export class ProductService {
     private readonly productRepository: Repository<Product>,
   ) {}
 
-  async findAll(): Promise<Product[]> {
-    return this.productRepository.find();
+  async findAll(
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<[Product[], number]> {
+    const [products, total] = await this.productRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return [products, total];
   }
 
   async create(createProductDto: CreateProductDto): Promise<Product> {

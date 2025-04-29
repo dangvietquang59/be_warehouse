@@ -11,12 +11,19 @@ export class CategoryService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  async findAll(): Promise<Category[]> {
-    return this.categoryRepository.find();
+  async findAll(
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<[Category[], number]> {
+    const [categories, total] = await this.categoryRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return [categories, total];
   }
 
-  async create(createProductDto: CreateCategoryDto): Promise<Category> {
-    const product = this.categoryRepository.create(createProductDto); // Tạo sản phẩm mới từ DTO
-    return this.categoryRepository.save(product); // Lưu vào DB
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const category = this.categoryRepository.create(createCategoryDto);
+    return this.categoryRepository.save(category);
   }
 }

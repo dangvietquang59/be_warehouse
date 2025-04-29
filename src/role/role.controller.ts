@@ -22,10 +22,10 @@ export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new product' })
+  @ApiOperation({ summary: 'Create a new role' })
   @ApiResponse({
     status: 201,
-    description: 'The product has been successfully created.',
+    description: 'The role has been successfully created.',
     type: Role,
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
@@ -33,7 +33,7 @@ export class RoleController {
     @Body() createRoleDto: CreateRoleDto,
   ): Promise<ApiResponseDto<any>> {
     const role = await this.roleService.create(createRoleDto);
-    return new ApiResponseDto(201, role);
+    return new ApiResponseDto(201, role, 'Role created successfully');
   }
 
   @Get()
@@ -42,15 +42,14 @@ export class RoleController {
   async findAll(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
-  ): Promise<ApiResponseDto<any>> {
-    const [roles, total] = await this.roleService.findAll(page, limit);
-    return new ApiResponseDto(200, roles, page, limit, total);
+  ): Promise<[Role[], number]> {
+    return await this.roleService.findAll(page, limit);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<ApiResponseDto<any>> {
     const role = await this.roleService.findOne(+id);
-    return new ApiResponseDto(200, role);
+    return new ApiResponseDto(200, role, 'Role retrieved successfully');
   }
 
   @Put(':id')
@@ -59,12 +58,12 @@ export class RoleController {
     @Body() updateRoleDto: UpdateRoleDto,
   ): Promise<ApiResponseDto<any>> {
     const role = await this.roleService.update(+id, updateRoleDto);
-    return new ApiResponseDto(200, role);
+    return new ApiResponseDto(200, role, 'Role updated successfully');
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<ApiResponseDto<any>> {
     await this.roleService.remove(+id);
-    return new ApiResponseDto(200, { message: 'Role deleted successfully' });
+    return new ApiResponseDto(200, null, 'Role deleted successfully');
   }
 }

@@ -17,7 +17,9 @@ export class AuthService {
   async register(registerDto: RegisterDto): Promise<User> {
     try {
       // Check if user already exists
-      const existingUser = await this.userService.findByEmail(registerDto.email);
+      const existingUser = await this.userService.findByEmail(
+        registerDto.email,
+      );
       if (existingUser) {
         throw new BusinessException('Email already exists');
       }
@@ -33,21 +35,32 @@ export class AuthService {
 
   async login(loginDto: LoginDto): Promise<any> {
     try {
+      // Join bảng Role để có user.role.name
       const user = await this.userService.findByEmail(loginDto.email);
       if (!user) {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
+      const isPasswordValid = await bcrypt.compare(
+        loginDto.password,
+        user.password,
+      );
       if (!isPasswordValid) {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      const payload = { username: user.username, sub: user.id, role: user.role_id };
+      // JWT payload gồm username, user id, và tên vai trò
+      const payload = {
+        username: user.username,
+        sub: user.id,
+        role: user.role?.name || 'USER', // fallback nếu role null
+      };
+
       return {
         access_token: this.jwtService.sign(payload),
       };
     } catch (error) {
+      console.error('Login failed:', error); // Ghi log hỗ trợ debug
       if (error instanceof UnauthorizedException) {
         throw error;
       }

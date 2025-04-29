@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Category } from 'src/category/category.entity';
 
 @Entity()
 export class Product {
@@ -30,4 +37,8 @@ export class Product {
   @Column()
   @ApiProperty({ description: 'The category_id of the product' })
   category_id: number;
+
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 }

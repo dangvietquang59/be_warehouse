@@ -22,7 +22,7 @@ export class UserService {
         username: createUserDto.username,
         password: hashedPassword,
         email: createUserDto.email,
-        role_id: createUserDto.role_id,
+        role_id: 3,
       });
 
       return await this.userRepository.save(newUser);
@@ -38,7 +38,10 @@ export class UserService {
 
   // Tìm người dùng theo email
   async findByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findOne({ where: { email } });
+    return this.userRepository.findOne({
+      where: { email },
+      relations: ['role'], // <-- Join luôn bảng Role
+    });
   }
 
   // Tìm người dùng theo ID
@@ -52,7 +55,9 @@ export class UserService {
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     try {
-      const user = await this.userRepository.findOne({ where: { id: parseInt(id) } });
+      const user = await this.userRepository.findOne({
+        where: { id: parseInt(id) },
+      });
       if (!user) {
         throw new NotFoundException(`User with ID ${id} not found`);
       }

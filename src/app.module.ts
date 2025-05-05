@@ -15,7 +15,8 @@ import { SupplierModule } from './supplier/supplier.module';
 import { Supplier } from './supplier/supplier.entity';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { Warehouse } from './warehouse/warehouse.entity';
-
+import { LocationWarehouseModule } from './location/location.module';
+import { LocationWarehouse } from './location/location.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -30,7 +31,7 @@ import { Warehouse } from './warehouse/warehouse.entity';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product, User, Role, Category, Supplier, Warehouse],
+        entities: [Product, User, Role, Category, Supplier, Warehouse, LocationWarehouse],
         synchronize: true,
         logging: true,
       }),
@@ -43,6 +44,7 @@ import { Warehouse } from './warehouse/warehouse.entity';
     CategoryModule,
     WarehouseModule,
     SupplierModule,
+    LocationWarehouseModule,
     HealthModule,
   ],
   controllers: [],

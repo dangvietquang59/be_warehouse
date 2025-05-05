@@ -58,6 +58,7 @@ export class AuthService {
 
       return {
         access_token: this.jwtService.sign(payload),
+        user: user,
       };
     } catch (error) {
       console.error('Login failed:', error); // Ghi log hỗ trợ debug

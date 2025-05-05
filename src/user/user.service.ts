@@ -40,7 +40,7 @@ export class UserService {
   async findByEmail(email: string): Promise<User | null> {
     return this.userRepository.findOne({
       where: { email },
-      relations: ['role'], // <-- Join luôn bảng Role
+      relations: ['role'], 
     });
   }
 

@@ -13,6 +13,8 @@ import { Category } from './category/category.entity';
 import { CategoryModule } from './category/category.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { Supplier } from './supplier/supplier.entity';
+import { WarehouseModule } from './warehouse/warehouse.module';
+import { Warehouse } from './warehouse/warehouse.entity';
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import { Supplier } from './supplier/supplier.entity';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product, User, Role, Category, Supplier],
+        entities: [Product, User, Role, Category, Supplier, Warehouse],
         synchronize: true,
         logging: true,
       }),
@@ -39,6 +41,7 @@ import { Supplier } from './supplier/supplier.entity';
     RoleModule,
     ProductModule,
     CategoryModule,
+    WarehouseModule,
     SupplierModule,
     HealthModule,
   ],

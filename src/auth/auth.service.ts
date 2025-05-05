@@ -53,7 +53,7 @@ export class AuthService {
       const payload = {
         username: user.username,
         sub: user.id,
-        role: user.role?.name || 'USER', // fallback nếu role null
+        role: user.role?.name || 'staff',
       };
 
       return {

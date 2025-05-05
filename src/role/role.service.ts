@@ -17,7 +17,10 @@ export class RoleService {
     return await this.roleRepository.save(role);
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<[Role[], number]> {
+  async findAll(
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<[Role[], number]> {
     const [roles, total] = await this.roleRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,

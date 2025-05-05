@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './product.entity';
@@ -23,11 +23,31 @@ export class ProductService {
   }
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const SKU = 'PROD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    const SKU = 'PROD' + Math.random().toString(36).substr(2, 9).toUpperCase();
     const product = this.productRepository.create({
       ...createProductDto,
       SKU,
     });
     return this.productRepository.save(product);
+  }
+
+  async findOne(id: number): Promise<Product> {
+    const role = await this.productRepository.findOne({ where: { id } });
+    if (!role) {
+      throw new NotFoundException(`Role with ID ${id} not found`);
+    }
+    return role;
+  }
+
+  async update(
+    id: number,
+    updateProductDto: CreateProductDto,
+  ): Promise<Product> {
+    await this.productRepository.update(id, updateProductDto);
+    return await this.findOne(id);
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.productRepository.delete(id);
   }
 }

@@ -8,4 +8,4 @@ export class UpdateRoleDto {
   @IsString()
   @IsOptional()
   description?: string;
-} 
+}

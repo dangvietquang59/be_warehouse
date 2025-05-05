@@ -14,7 +14,7 @@ export class Product {
   @ApiProperty({ description: 'The ID of the product' })
   id: number;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   @ApiProperty({ description: 'The SKU of the product' })
   SKU: string;
 

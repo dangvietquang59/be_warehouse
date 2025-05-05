@@ -10,4 +10,4 @@ export class BusinessException extends HttpException {
       status,
     );
   }
-} 
+}

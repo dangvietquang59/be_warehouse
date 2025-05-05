@@ -55,10 +55,10 @@ export class AuthService {
                 sub: user.id,
                 role: user.role?.name || 'staff',
             };
-
+            const { password, ...userWithoutPassword } = user;
             return {
                 access_token: this.jwtService.sign(payload),
-                user: user,
+                user: userWithoutPassword,
             };
         } catch (error) {
             console.error('Login failed:', error); // Ghi log hỗ trợ debug

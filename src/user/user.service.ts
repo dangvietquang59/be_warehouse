@@ -53,6 +53,15 @@ export class UserService {
         return user;
     }
 
+   async findAll(page: number = 1, limit: number = 10): Promise<[User[], number]> {
+    const [users, total] = await this.userRepository.findAndCount({
+        skip: (page - 1) * limit,
+        take: limit,
+        select: ["id", "username", "email", "role_id"], 
+    });
+    return [users, total];
+}
+
     async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
         try {
             const user = await this.userRepository.findOne({

@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Param, Body } from '@nestjs/common';
+import { Controller, Get, Put, Param, Body, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiResponseDto } from '../common/dto/api-response.dto';
@@ -8,6 +8,14 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('api/users')
 export class UserController {
     constructor(private readonly userService: UserService) {}
+    @Get()
+    async findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+    ): Promise<ApiResponseDto<any>> {
+        const [users, total] = await this.userService.findAll(page, limit);
+        return new ApiResponseDto(200, { users, total }, 'Users retrieved successfully');
+    }
 
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<ApiResponseDto<any>> {

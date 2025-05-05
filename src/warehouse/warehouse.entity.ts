@@ -4,8 +4,10 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { LocationWarehouse } from 'src/location/location.entity';
 
 @Entity()
 export class Warehouse {
@@ -32,4 +34,7 @@ export class Warehouse {
     @UpdateDateColumn()
     @ApiProperty({ description: 'The address of the warehouse' })
     updated_at: string;
+
+    @OneToMany(() => LocationWarehouse, (location) => location.warehouse)
+    locations: LocationWarehouse[];
 }

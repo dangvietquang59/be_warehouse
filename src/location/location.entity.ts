@@ -4,6 +4,7 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn,
     ManyToOne,
+    OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Warehouse } from 'src/warehouse/warehouse.entity';
@@ -29,8 +30,8 @@ export class LocationWarehouse {
     @Column()
     @ApiProperty({ description: 'The description of the warehouse location' })
     description: string;
-
-    @ManyToOne(() => Warehouse)
+    
+    @ManyToOne(() => Warehouse, (warehouse) => warehouse.locations, { eager: true })
     @JoinColumn({ name: 'warehouse_id' })
     warehouse: Warehouse;
 }

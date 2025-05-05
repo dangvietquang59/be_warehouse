@@ -7,13 +7,13 @@ config();
 const configService = new ConfigService();
 
 export default new DataSource({
-  type: 'postgres',
-  host: configService.get('DATABASE_HOST'),
-  port: configService.get('DATABASE_PORT'),
-  username: configService.get('DATABASE_USERNAME'),
-  password: configService.get('DATABASE_PASSWORD'),
-  database: configService.get('DATABASE_NAME'),
-  entities: ['src/**/*.entity{.ts,.js}'],
-  migrations: ['src/migrations/*{.ts,.js}'],
-  synchronize: false,
+    type: 'postgres',
+    host: configService.get('DATABASE_HOST'),
+    port: configService.get('DATABASE_PORT'),
+    username: configService.get('DATABASE_USERNAME'),
+    password: configService.get('DATABASE_PASSWORD'),
+    database: configService.get('DATABASE_NAME'),
+    entities: ['src/**/*.entity{.ts,.js}'],
+    migrations: ['src/migrations/*{.ts,.js}'],
+    synchronize: false,
 });

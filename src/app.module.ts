@@ -18,36 +18,44 @@ import { Warehouse } from './warehouse/warehouse.entity';
 import { LocationWarehouseModule } from './location/location.module';
 import { LocationWarehouse } from './location/location.entity';
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DATABASE_HOST'),
-        port: configService.get<number>('DATABASE_PORT'),
-        username: configService.get<string>('DATABASE_USERNAME'),
-        password: configService.get<string>('DATABASE_PASSWORD'),
-        database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product, User, Role, Category, Supplier, Warehouse, LocationWarehouse],
-        synchronize: true,
-        logging: true,
-      }),
-      inject: [ConfigService],
-    }),
-    AuthModule,
-    UserModule,
-    RoleModule,
-    ProductModule,
-    CategoryModule,
-    WarehouseModule,
-    SupplierModule,
-    LocationWarehouseModule,
-    HealthModule,
-  ],
-  controllers: [],
-  providers: [],
+    imports: [
+        ConfigModule.forRoot({
+            envFilePath: '.env',
+        }),
+        TypeOrmModule.forRootAsync({
+            imports: [ConfigModule],
+            useFactory: async (configService: ConfigService) => ({
+                type: 'postgres',
+                host: configService.get<string>('DATABASE_HOST'),
+                port: configService.get<number>('DATABASE_PORT'),
+                username: configService.get<string>('DATABASE_USERNAME'),
+                password: configService.get<string>('DATABASE_PASSWORD'),
+                database: configService.get<string>('DATABASE_NAME'),
+                entities: [
+                    Product,
+                    User,
+                    Role,
+                    Category,
+                    Supplier,
+                    Warehouse,
+                    LocationWarehouse,
+                ],
+                synchronize: true,
+                logging: true,
+            }),
+            inject: [ConfigService],
+        }),
+        AuthModule,
+        UserModule,
+        RoleModule,
+        ProductModule,
+        CategoryModule,
+        WarehouseModule,
+        SupplierModule,
+        LocationWarehouseModule,
+        HealthModule,
+    ],
+    controllers: [],
+    providers: [],
 })
 export class AppModule {}

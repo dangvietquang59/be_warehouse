@@ -1,12 +1,12 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Put,
-  Param,
-  Delete,
-  Query,
+    Controller,
+    Get,
+    Post,
+    Body,
+    Put,
+    Param,
+    Delete,
+    Query,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { CreateRoleDto } from './dto/create-role.dto';
@@ -19,51 +19,51 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('Roles')
 @Controller('api/roles')
 export class RoleController {
-  constructor(private readonly roleService: RoleService) {}
+    constructor(private readonly roleService: RoleService) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Create a new role' })
-  @ApiResponse({
-    status: 201,
-    description: 'The role has been successfully created.',
-    type: Role,
-  })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  async create(
-    @Body() createRoleDto: CreateRoleDto,
-  ): Promise<ApiResponseDto<any>> {
-    const role = await this.roleService.create(createRoleDto);
-    return new ApiResponseDto(201, role, 'Role created successfully');
-  }
+    @Post()
+    @ApiOperation({ summary: 'Create a new role' })
+    @ApiResponse({
+        status: 201,
+        description: 'The role has been successfully created.',
+        type: Role,
+    })
+    @ApiResponse({ status: 400, description: 'Bad request' })
+    async create(
+        @Body() createRoleDto: CreateRoleDto,
+    ): Promise<ApiResponseDto<any>> {
+        const role = await this.roleService.create(createRoleDto);
+        return new ApiResponseDto(201, role, 'Role created successfully');
+    }
 
-  @Get()
-  @ApiOperation({ summary: 'Get all roles' })
-  @ApiResponse({ status: 200, description: 'Return all roles' })
-  async findAll(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
-  ): Promise<[Role[], number]> {
-    return await this.roleService.findAll(page, limit);
-  }
+    @Get()
+    @ApiOperation({ summary: 'Get all roles' })
+    @ApiResponse({ status: 200, description: 'Return all roles' })
+    async findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+    ): Promise<[Role[], number]> {
+        return await this.roleService.findAll(page, limit);
+    }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ApiResponseDto<any>> {
-    const role = await this.roleService.findOne(+id);
-    return new ApiResponseDto(200, role, 'Role retrieved successfully');
-  }
+    @Get(':id')
+    async findOne(@Param('id') id: string): Promise<ApiResponseDto<any>> {
+        const role = await this.roleService.findOne(+id);
+        return new ApiResponseDto(200, role, 'Role retrieved successfully');
+    }
 
-  @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateRoleDto: UpdateRoleDto,
-  ): Promise<ApiResponseDto<any>> {
-    const role = await this.roleService.update(+id, updateRoleDto);
-    return new ApiResponseDto(200, role, 'Role updated successfully');
-  }
+    @Put(':id')
+    async update(
+        @Param('id') id: string,
+        @Body() updateRoleDto: UpdateRoleDto,
+    ): Promise<ApiResponseDto<any>> {
+        const role = await this.roleService.update(+id, updateRoleDto);
+        return new ApiResponseDto(200, role, 'Role updated successfully');
+    }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string): Promise<ApiResponseDto<any>> {
-    await this.roleService.remove(+id);
-    return new ApiResponseDto(200, null, 'Role deleted successfully');
-  }
+    @Delete(':id')
+    async remove(@Param('id') id: string): Promise<ApiResponseDto<any>> {
+        await this.roleService.remove(+id);
+        return new ApiResponseDto(200, null, 'Role deleted successfully');
+    }
 }

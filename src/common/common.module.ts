@@ -3,12 +3,12 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 @Module({
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: HttpExceptionFilter,
-    },
-  ],
-  exports: [],
+    providers: [
+        {
+            provide: APP_FILTER,
+            useClass: HttpExceptionFilter,
+        },
+    ],
+    exports: [],
 })
 export class CommonModule {}

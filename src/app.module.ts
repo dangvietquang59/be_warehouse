@@ -11,6 +11,8 @@ import { Role } from './role/role.entity';
 import { HealthModule } from './health/health.module';
 import { Category } from './category/category.entity';
 import { CategoryModule } from './category/category.module';
+import { SupplierModule } from './supplier/supplier.module';
+import { Supplier } from './supplier/supplier.entity';
 
 @Module({
   imports: [
@@ -26,18 +28,19 @@ import { CategoryModule } from './category/category.module';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Product, User, Role, Category],
+        entities: [Product, User, Role, Category, Supplier],
         synchronize: true,
         logging: true,
       }),
       inject: [ConfigService],
     }),
-    ProductModule,
-    UserModule,
     AuthModule,
+    UserModule,
     RoleModule,
-    HealthModule,
+    ProductModule,
     CategoryModule,
+    SupplierModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [],

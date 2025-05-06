@@ -17,6 +17,9 @@ import { WarehouseModule } from './warehouse/warehouse.module';
 import { Warehouse } from './warehouse/warehouse.entity';
 import { LocationWarehouseModule } from './location/location.module';
 import { LocationWarehouse } from './location/location.entity';
+import { PurchaseOrder } from './purchase_order/purchase_order.entity';
+import { PurchaseOrderItem } from './purchase_order/purchase_order_item.entity';
+import { PurchaseOrderModule } from './purchase_order/purchase_order.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -39,6 +42,8 @@ import { LocationWarehouse } from './location/location.entity';
                     Supplier,
                     Warehouse,
                     LocationWarehouse,
+                    PurchaseOrder,
+                    PurchaseOrderItem,
                 ],
                 synchronize: true,
                 logging: true,
@@ -54,6 +59,7 @@ import { LocationWarehouse } from './location/location.entity';
         SupplierModule,
         LocationWarehouseModule,
         HealthModule,
+        PurchaseOrderModule,
     ],
     controllers: [],
     providers: [],

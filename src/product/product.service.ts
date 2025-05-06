@@ -32,14 +32,21 @@ export class ProductService {
         return this.productRepository.save(product);
     }
 
-    async findOne(id: number): Promise<Product> {
-        const role = await this.productRepository.findOne({ where: { id } });
-        if (!role) {
-            throw new NotFoundException(`Role with ID ${id} not found`);
+    async findOne(id: number): Promise<any> {
+        const product = await this.productRepository.findOne({
+            where: { id },
+            relations: ['category'],
+        });
+    
+        if (!product) {
+            throw new NotFoundException(`Product with ID ${id} not found`);
         }
-        return role;
+    
+        const { category_id, ...productWithoutCategoryId } = product;
+    
+        return productWithoutCategoryId;
     }
-
+    
     async update(
         id: number,
         updateProductDto: CreateProductDto,

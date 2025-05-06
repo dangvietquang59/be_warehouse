@@ -4,7 +4,6 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn,
     ManyToOne,
-    OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Warehouse } from 'src/warehouse/warehouse.entity';

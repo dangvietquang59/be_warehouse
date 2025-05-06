@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { LocationWarehouse } from 'src/location/location.entity';
+import { InventoryAudit } from 'src/inventory_audits/inventory_audits.entity';
 
 @Entity()
 export class Warehouse {
@@ -37,4 +38,7 @@ export class Warehouse {
 
     @OneToMany(() => LocationWarehouse, (location) => location.warehouse)
     locations: LocationWarehouse[];
+
+    @OneToMany(() => InventoryAudit, (inventory) => inventory.warehouse)
+    inventory: InventoryAudit[];
 }

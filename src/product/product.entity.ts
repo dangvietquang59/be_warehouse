@@ -4,9 +4,11 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn,
     ManyToOne,
+    OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from 'src/category/category.entity';
+import { InventoryAudit } from 'src/inventory_audits/inventory_audits.entity';
 
 @Entity()
 export class Product {
@@ -41,4 +43,7 @@ export class Product {
     @ManyToOne(() => Category)
     @JoinColumn({ name: 'category_id' })
     category: Category;
+
+    @OneToMany(() => InventoryAudit, (inventory) => inventory.product)
+    inventory: InventoryAudit[];
 }

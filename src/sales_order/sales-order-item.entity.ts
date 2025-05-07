@@ -6,7 +6,7 @@ import { SalesOrder } from './sales-order.entity';
 @Entity('sales_order_items')
 export class SalesOrderItem {
   @ApiProperty({ description: 'Sales order item ID' })
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @ApiProperty({ description: 'Sales order', type: () => SalesOrder })

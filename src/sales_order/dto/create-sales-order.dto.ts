@@ -1,10 +1,9 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsDate, IsEnum, IsNotEmpty, IsNumber, IsUUID, ValidateNested } from 'class-validator';
+import { IsArray, IsDate, IsEnum, IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
 import { SalesOrderStatus } from '../sales-order.entity';
 
 class CreateSalesOrderItemDto {
   @IsNotEmpty()
-  @IsUUID()
   product_id: string;
 
   @IsNotEmpty()
@@ -14,7 +13,6 @@ class CreateSalesOrderItemDto {
 
 export class CreateSalesOrderDto {
   @IsNotEmpty()
-  @IsUUID()
   customer_id: string;
 
   @IsNotEmpty()

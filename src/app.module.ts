@@ -23,14 +23,14 @@ import { PurchaseOrderModule } from './purchase_order/purchase_order.module';
 import { InventoryAudit } from './inventory_audits/inventory_audits.entity';
 import { InventoryAuditsModule } from './inventory_audits/inventory_audits.module';
 import { Customer } from './customer/customer.entity';
-import { SalesOrder } from './sales-order/sales-order.entity';
-import { SalesOrderItem } from './sales-order/sales-order-item.entity';
-import { StockMovement } from './stock-movement/stock-movement.entity';
-import { ActivityLog } from './activity-log/activity-log.entity';
+import { SalesOrder } from './sales_order/sales-order.entity';
+import { SalesOrderItem } from './sales_order/sales-order-item.entity';
+import { StockMovement } from './stock_movement/stock-movement.entity';
+import { ActivityLog } from './activity_log/activity-log.entity';
 import { CustomerModule } from './customer/customer.module';
-import { SalesOrderModule } from './sales-order/sales-order.module';
-import { StockMovementModule } from './stock-movement/stock-movement.module';
-import { ActivityLogModule } from './activity-log/activity-log.module';
+import { SalesOrderModule } from './sales_order/sales-order.module';
+import { StockMovementModule } from './stock_movement/stock-movement.module';
+import { ActivityLogModule } from './activity_log/activity-log.module';
 @Module({
     imports: [
         ConfigModule.forRoot({

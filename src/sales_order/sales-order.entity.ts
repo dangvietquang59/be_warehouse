@@ -13,7 +13,7 @@ export enum SalesOrderStatus {
 @Entity('sales_orders')
 export class SalesOrder {
   @ApiProperty({ description: 'Sales order ID' })
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @ApiProperty({ description: 'Customer', type: () => Customer })

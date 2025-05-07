@@ -1,11 +1,11 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { SalesOrder } from '../sales-order/sales-order.entity';
+import { SalesOrder } from '../sales_order/sales-order.entity';
 
 @Entity('customers')
 export class Customer {
   @ApiProperty({ description: 'Customer ID' })
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @ApiProperty({ description: 'Customer name' })

@@ -15,7 +15,7 @@ export enum ReferenceType {
 
 @Entity('stock_movements')
 export class StockMovement {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @ManyToOne(() => Product)

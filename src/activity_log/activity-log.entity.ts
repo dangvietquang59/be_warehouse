@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 @Entity('activity_logs')
 export class ActivityLog {
   @ApiProperty({ description: 'Activity log ID' })
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @ApiProperty({ description: 'User ID' })

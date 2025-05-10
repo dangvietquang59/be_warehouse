@@ -62,7 +62,7 @@ import { ActivityLogModule } from './activity_log/activity-log.module';
                     StockMovement,
                     ActivityLog,
                 ],
-                synchronize: true,
+                synchronize: false,
                 logging: true,
             }),
             inject: [ConfigService],

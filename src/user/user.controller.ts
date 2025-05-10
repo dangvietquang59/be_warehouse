@@ -23,6 +23,12 @@ export class UserController {
         return new ApiResponseDto(200, user, 'User retrieved successfully');
     }
 
+    @Get('card-number/:card_number')
+    async findByCardNumber(@Param('card_number') card_number: string): Promise<ApiResponseDto<any>> {
+        const user = await this.userService.findByCardNumber(card_number);
+        return new ApiResponseDto(200, user, 'User retrieved successfully');
+    }
+
     @Put(':id')
     async updateUser(
         @Param('id') id: string,

@@ -35,8 +35,7 @@ export class AuthService {
 
     async login(loginDto: LoginDto): Promise<any> {
         try {
-            // Join bảng Role để có user.role.name
-            const user = await this.userService.findByEmail(loginDto.email);
+            const user = await this.userService.findByAccount(loginDto.account);
             if (!user) {
                 throw new UnauthorizedException('Invalid credentials');
             }
@@ -55,7 +54,7 @@ export class AuthService {
                 sub: user.id,
                 role: user.role?.name || 'staff',
             };
-            const { password,role_id, ...userWithoutPassword } = user;
+            const { password, role_id, ...userWithoutPassword } = user;
 
             return {
                 access_token: this.jwtService.sign(payload),
